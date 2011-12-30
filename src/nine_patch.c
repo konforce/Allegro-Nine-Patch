@@ -104,7 +104,7 @@ static bool init_nine_patch_side(NINE_PATCH_SIDE *ps, ALLEGRO_BITMAP *bmp, int v
 
 NINE_PATCH_BITMAP *create_nine_patch_bitmap(ALLEGRO_BITMAP *bmp, bool owns_bitmap)
 {
-	int i, s, t, n, z;
+	int i;
 	NINE_PATCH_BITMAP *p9;
 	ALLEGRO_COLOR c;
 	
@@ -197,7 +197,7 @@ void calc_nine_patch_offsets(NINE_PATCH_SIDE *ps, int len)
 	int dest_offset = 0;
 	int remaining_stretch = len - ps->fix;
 	
-	for (i = 0; i < ps->count; ++i)
+	for (i = 0, j = 0; i < ps->count; ++i)
 	{
 		ps->m[i].dest_offset = dest_offset;
 		if (ps->m[i].ratio == 0)
@@ -224,7 +224,7 @@ void calc_nine_patch_offsets(NINE_PATCH_SIDE *ps, int len)
 
 void draw_nine_patch_bitmap(NINE_PATCH_BITMAP *p9, int dx, int dy, int dw, int dh)
 {
-	int i, j, dest_offset, remaining_stretch;
+	int i, j;
 	bool release_drawing = false;
 	
 	/* don't draw bitmaps that are smaller than the fixed area */
@@ -295,7 +295,6 @@ ALLEGRO_BITMAP *create_bitmap_from_nine_patch(NINE_PATCH_BITMAP *p9, int w, int 
 NINE_PATCH_BITMAP *load_nine_patch_bitmap(const char *filename)
 {
 	ALLEGRO_BITMAP *bmp = al_load_bitmap(filename);
-	NINE_PATCH_BITMAP *p9;
 	
 	return bmp ? create_nine_patch_bitmap(bmp, true) : NULL;
 }
