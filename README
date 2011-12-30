@@ -1,6 +1,44 @@
---------------------
- Allegro Nine Patch 
---------------------
+------------------------------------------------------------------------------
+ Allegro Nine Patch, by Matthew Leverton, (C) 2011
+------------------------------------------------------------------------------
+
+ (requires Allegro 5)
+
+= ABOUT =
+
+A nine patch image is a regular image with a special one pixel border. The 
+border along the top marks areas that can be stretched horizontally. The 
+border along the left marks areas that can be stretched vertically. The borders
+along the right and bottom can be used to define internal padding (i.e., the
+area on which things can be drawn on top of the bitmap).
+
+The image on the left is 3x3 nine patch image. The X marks the stretchable
+areas. The image on the right is a 5x5 version. Note that the middle column
+has been stretched horizontally, while the lower two rows were stretched
+horizontally.
+
+  ..X..    ABBBC
+  .ABC.    DEEEF
+  XDEF.    DEEEF
+  XGHI.    GHHHI
+  .....    GHHHI
+
+You can have as many stretchable areas as you would like. If the above image
+is altered to have two stretchable areas, the new 5x5 image will have 
+two stretched areas around the middle row.
+
+  ..X..    ABBBC
+  XABC.    ABBBC
+  .DEF.    DEEEF
+  XGHI.    GHHHI
+  .....    GHHHI
+  
+This library can load nine patch images and draw them at any size (equal to or 
+larger than the minimum size as defined by the image file).
+
+The border must be 1 pixel wide along each side and entirely transparent, except
+for pure black (i.e., rgba(1.0, 1.0, 1.0, 1.0)) pixels that mark stretchable
+areas. 
 
 = STRUCTURES =
 
