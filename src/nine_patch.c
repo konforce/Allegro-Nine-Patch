@@ -1,6 +1,5 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
-#include <allegro5/allegro_primitives.h>
 
 #include "allegro_nine_patch.h"
 
@@ -285,7 +284,8 @@ ALLEGRO_BITMAP *create_bitmap_from_nine_patch(NINE_PATCH_BITMAP *p9, int w, int 
 	if (!bmp) return NULL;
 	
 	al_store_state(&s, ALLEGRO_STATE_TARGET_BITMAP);
-	al_set_target_bitmap(bmp);	
+	al_set_target_bitmap(bmp);
+	al_clear_to_color(al_map_rgba(0,0,0,0));
 	draw_nine_patch_bitmap(p9, 0, 0, w, h);
 	al_restore_state(&s);
 	
