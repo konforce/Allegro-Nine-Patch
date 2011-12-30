@@ -15,7 +15,7 @@ area on which things can be drawn on top of the bitmap).
 The image on the left is 3x3 nine patch image. The X marks the stretchable
 areas. The image on the right is a 5x5 version. Note that the middle column
 has been stretched horizontally, while the lower two rows were stretched
-horizontally.
+vertically.
 
   ..X..    ABBBC
   .ABC.    DEEEF
