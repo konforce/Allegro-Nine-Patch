@@ -1,0 +1,83 @@
+--------------------
+ Allegro Nine Patch 
+--------------------
+
+= STRUCTURES =
+
+NINE_PATCH_BITMAP 
+
+NINE_PATCH_PADDING 
+  int top, right, bottom, left;
+  
+= API =
+
+NINE_PATCH_BITMAP *load_nine_patch_bitmap(const char *filename);
+
+  Loads a nine patch bitmap from an image file. Returns NULL if the image was not
+  a valid nine patch bitmap.
+
+NINE_PATCH_BITMAP *create_nine_patch_bitmap(ALLEGRO_BITMAP *bmp, bool owns_bitmap);
+
+  Creates a nine patch bitmap from an ALLEGRO_BITMAP. The bitmap must not be destroyed
+  while the nine patch is in use. If the bitmap should automatically be destroyed
+  when the nine patch bitmap is destroyed, then set owns_bitmap to true.
+
+void draw_nine_patch_bitmap(NINE_PATCH_BITMAP *p9, int dx, int dy, int dw, int dh);
+
+  Draws a nine patch bitmap to the target bitmap at the dx,dy coordinates with 
+  dimensions dw,dh. If either dimension is shorter than the minimum, then nothing
+  will be drawn.
+
+ALLEGRO_BITMAP *create_bitmap_from_nine_patch(NINE_PATCH_BITMAP *p9, int w, int h);
+
+  Returns an ALLEGRO_BITMAP created from the nine patch bitmap with the specified
+  dimensions w,h. 
+
+int get_nine_patch_bitmap_width(const NINE_PATCH_BITMAP *p9);
+
+  Returns the width of the natural size bitmap. (Excludes the edge columns.)
+
+int get_nine_patch_bitmap_height(const NINE_PATCH_BITMAP *p9);
+
+  Returns the height of the natural size bitmap. (Excludes the edge rows.)
+
+int get_nine_patch_bitmap_min_width(const NINE_PATCH_BITMAP *p9);
+
+  Returns the minimum drawable width of the bitmap. 
+
+int get_nine_patch_bitmap_min_height(const NINE_PATCH_BITMAP *p9);
+
+  Returns the minimum drawable height of the bitmap.
+
+ALLEGRO_BITMAP *get_nine_patch_bitmap_source(const NINE_PATCH_BITMAP *p9);
+
+  Returns the source ALLEGRO_BITMAP with the edge rows and columns.
+
+NINE_PATCH_PADDING get_nine_patch_padding(const NINE_PATCH_BITMAP *p9);
+
+  Returns the padding associated with the nine patch image. Note that
+  the padding does not affect any of the nine patch drawing routines.
+
+void destroy_nine_patch_bitmap(NINE_PATCH_BITMAP *p9);
+
+  Destroys the nine patch bitmap. If it owns its associated ALLEGRO_BITMAP,
+  then it will also be destroyed.
+  
+= EXAMPLES =
+
+  /* load a nine patch bitmap and draw it to the target bitmap */
+  NINE_PATCH_BITMAP *p9 = load_nine_patch_bitmap("button.9.png");
+  draw_nine_patch_bitmap(p9, 0, 0, 320, 50);
+  
+  /* create a nine patch bitmap from an existing ALLEGRO_BITMAP */
+  ALLEGRO_BITMAP *bmp = al_load_bitmap("button.9.png");
+  NINE_PATCH_BITMAP *p9 = create_nine_patch_bitmap(bmp, false);
+  destroy_nine_patch_bitmap(p9);
+  // bmp is still valid, since the nine patch does not own it.
+  
+  /* create an ALLEGRO_BITMAP from a nine patch bitmap */
+  ALLEGRO_BITMAP *bmp = create_bitmap_from_nine_patch(p9, 320, 50);
+  al_draw_bitmap(bmp, x, y, 0);
+  
+  
+  
